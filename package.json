@@ -1,7 +1,7 @@
 {
   "name": "telemetrics-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "**Prerequisites** - Node.js (v18 or higher) - npm (latest version) - Docker - Turborepo ------------",
   "main": "index.js",
   "scripts": {
     "dev": "turbo run dev",
