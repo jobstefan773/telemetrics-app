@@ -75,7 +75,7 @@ supabase start
 4. Run NextJS and NestJS
 ```bash
 cd ../..
-turbo run dev
+npm run dev
 ```
 
 
