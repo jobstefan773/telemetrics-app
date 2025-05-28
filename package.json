@@ -1,0 +1,30 @@
+{
+  "name": "telemetrics-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jobstefan773/telemetrics-app.git"
+  },
+  "packageManager": "npm@11.4.1",
+  "workspaces": [
+    "apps/*"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jobstefan773/telemetrics-app/issues"
+  },
+  "homepage": "https://github.com/jobstefan773/telemetrics-app#readme",
+  "devDependencies": {
+    "turbo": "^2.5.3"
+  }
+}
