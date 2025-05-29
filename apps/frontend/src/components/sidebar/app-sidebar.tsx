@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
+import TelemetricsLogo from "../telemetrics-logo";
+
 import {
   Sidebar,
   SidebarContent,
@@ -28,7 +30,7 @@ const data = {
   user: {
     name: "Arj Tabudlong",
     email: "arjgwapo@techadvise.ph",
-    avatar: "/avatars/shadcn.jpg",
+    avatar: "/ID-portrait.jpeg",
   },
 };
 
@@ -66,35 +68,29 @@ const items = [
   },
 ];
 
-export function AppSidebar() {
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar>
+    <Sidebar collapsible='offcanvas' {...props}>
       <SidebarHeader>
-        <div className='flex flex-row pt-4 px-2'>
-          {" "}
-          {/* <Image
-            src='/TechAdvise-Logo.png'
-            width={150}
-            height={150}
-            alt='Picture of the author'
-            // className='mb-4'
-          ></Image> */}
-          <p>
-            <strong className='text-2xl'>Telemetrics</strong>
-          </p>
-        </div>
+        <TelemetricsLogo />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel className='text-main-dark'>
+            Application
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                <SidebarMenuItem key={item.title} className='rounded-md'>
+                  <SidebarMenuButton
+                    asChild
+                    className='hover:bg-main-orange-accent hover:text-main-orange'
+                    size='lg'
+                  >
                     <a href={item.url}>
                       <item.icon />
-                      <span>{item.title}</span>
+                      <span>{item.title} </span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

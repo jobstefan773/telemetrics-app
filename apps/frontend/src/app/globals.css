@@ -37,6 +37,13 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Custom color variables */
+  --main-orange: oklch(0.696 0.1933 46.74);
+  --main-orange-accent: oklch(0.696 0.1933 46.74 / 10%);
+
+  --main-dark: oklch(0.2749 0.0188 258.37);
+  --main-white-accent: oklch(0.9731 0 0);
 }
 
 .dark {
@@ -111,6 +118,12 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Custom color variables */
+  --color-main-orange: var(--main-orange);
+  --color-main-orange-accent: var(--main-orange-accent);
+  --color-main-dark: var(--main-dark);
+  --color-main-white-accent: var(--main-white-accent);
 }
 
 @layer base {
