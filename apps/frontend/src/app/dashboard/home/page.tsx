@@ -6,8 +6,8 @@ import { SectionCards } from "@/components/section-cards";
 import { SiteHeader } from "@/components/site-header";
 import CardDashboard from "@/components/section-cards/card-dashboard";
 
-import data from "./test-data.json";
-import cardData from "./sample-card-data.json";
+import data from "../test-data.json";
+import cardData from "../sample-card-data.json";
 // import { ModeToggle } from "@/components/theme/mode-toggle";
 
 export default function Page() {

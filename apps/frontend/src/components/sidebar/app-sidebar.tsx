@@ -37,33 +37,33 @@ const data = {
 // Menu items.
 const items = [
   {
-    title: "Dashboard",
-    url: "#",
+    title: "Home",
+    url: "/dashboard/home",
     icon: LayoutDashboard,
   },
   {
     title: "List",
-    url: "#",
+    url: "/dashboard/list",
     icon: Logs,
   },
   {
     title: "Analytics",
-    url: "#",
+    url: "/dashboard/analytics",
     icon: ChartNoAxesColumn,
   },
   {
     title: "Forklifts",
-    url: "#",
+    url: "/dashboard/forklifts",
     icon: Forklift,
   },
   {
     title: "Battery",
-    url: "#",
+    url: "/dashboard/battery",
     icon: Battery,
   },
   {
     title: "Fault Analysis",
-    url: "#",
+    url: "/dashboard/fault-analysis",
     icon: ChartLine,
   },
 ];
@@ -77,7 +77,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className='text-main-dark'>
-            Application
+            Dashboard
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
