@@ -2,9 +2,9 @@
 
 import { ChartAreaInteractive } from "@/components/chart-area-interactive";
 import { DataTable } from "@/components/data-table";
-import { SectionCards } from "@/components/section-cards";
-import { SiteHeader } from "@/components/site-header";
-import CardDashboard from "@/components/section-cards/card-dashboard";
+import { SectionCards } from "@/components/card/section-cards";
+import { SiteHeader } from "@/components/header/site-header";
+import CardDashboard from "@/components/card/card-dashboard";
 
 import data from "../test-data.json";
 import cardData from "../sample-card-data.json";
@@ -20,7 +20,7 @@ export default function Page() {
             <div className='px-4 lg:px-6'>
               <ChartAreaInteractive />
             </div>
-            <DataTable data={data} />
+            {/* <DataTable data={data} /> */}
           </div>
         </div>
       </div>
