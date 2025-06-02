@@ -16,19 +16,78 @@ datasource db {
 
 // MODELS
 model User {
-  id                 String    @id @default(cuid())
-  username           String @unique
-  password           String
-  email              String? @unique
-  contactNumber      String @unique
-  role               Role @default(Employee)
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  id          String     @id @default(uuid())
+  username     String   @unique
+  password     String
+  phoneNumber String    @unique
+  email        String?   @unique
+
+  role         Role     @default(USER)
+
+  account     Account?
 }
+
+model Account {
+  id           String      @id @default(uuid())
+  firstName   String
+  lastName    String
+  status       Status   @default(ACTIVE)
+  registeredAt DateTime @default(now())
+
+  userId       String      @unique
+  user         User     @relation(fields: [userId], references: [id])
+
+  // forkliftsHeld        Forklift[] @relation("ForkliftHolder")
+  // forkliftsRegistered  Forklift[] @relation("ForkliftRegistrar")
+
+  // tenancyAuditsAsLastOwner TenancyAudit[] @relation("LastOwner")
+  // tenancyAuditsAsNewOwner  TenancyAudit[] @relation("NewOwner")
+}
+
+// model Forklift {
+//   id             String           @id @default(uuid())
+//   vin            String        @unique
+//   status         ForkliftStatus @default(STANDBY)
+
+//   holder         Account       @relation("ForkliftHolder", fields: [holderId], references: [id])
+//   holderId       String
+
+//   registeredBy   Account       @relation("ForkliftRegistrar", fields: [registeredById], references: [id])
+//   registeredById String
+
+//   registeredAt   DateTime      @default(now())
+
+//   tenancyAudits  TenancyAudit[]
+// }
+
+// model TenancyAudit {
+//   id           String   @id @default(uuid()) @db.Uuid
+
+//   forklift     Forklift @relation(fields: [forkliftId], references: [id])
+//   forkliftId   String
+
+//   lastOwner    Account  @relation("LastOwner", fields: [lastOwnerId], references: [id])
+//   lastOwnerId  String
+
+//   newOwner     Account  @relation("NewOwner", fields: [newOwnerId], references: [id])
+//   newOwnerId   String
+
+//   createdAt    DateTime @default(now())
+// }
 
 // ENUMS
 enum Role {
-  Admin
-  Employee
-  Manager
+  USER
+  VENDOR
 }
+
+enum Status {
+  ACTIVE
+  SUSPENDED
+}
+
+// enum ForkliftStatus {
+//   STANDBY
+//   RENTED
+//   OWNED
+// }  
