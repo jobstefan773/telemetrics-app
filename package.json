@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/jobstefan773/telemetrics-app#readme",
   "devDependencies": {
+    "supabase": "^2.23.4",
     "turbo": "^2.5.3"
   },
   "dependencies": {
