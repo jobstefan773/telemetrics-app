@@ -38,7 +38,7 @@ export function SiteHeader({ routes }: { routes: SidebarRoute[] }) {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href='/dashboard/home'>
+                  <BreadcrumbLink href='/home'>
                     Dashboard
                   </BreadcrumbLink>
                 </BreadcrumbItem>

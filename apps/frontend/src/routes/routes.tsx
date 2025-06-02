@@ -21,32 +21,32 @@ export interface SidebarRoute {
 export const sidebarRoute: SidebarRoute[] = [
   {
     title: "Home",
-    url: "/dashboard/home",
+    url: "/home",
     icon: LayoutDashboard,
   },
   {
     title: "List",
-    url: "/dashboard/list",
+    url: "/list",
     icon: Logs,
   },
   {
     title: "Analytics",
-    url: "/dashboard/analytics",
+    url: "/analytics",
     icon: ChartNoAxesColumn,
   },
   {
     title: "Forklifts",
-    url: "/dashboard/forklifts",
+    url: "/forklifts",
     icon: Forklift,
   },
   {
     title: "Battery",
-    url: "/dashboard/battery",
+    url: "/battery",
     icon: Battery,
   },
   {
     title: "Fault Analysis",
-    url: "/dashboard/fault-analysis",
+    url: "/fault-analysis",
     icon: ChartLine,
   },
 ];
