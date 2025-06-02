@@ -11,9 +11,12 @@ import Image from "next/image";
 
 import { LucideIcon } from "lucide-react";
 
-export interface SidebarRoute {
+export interface Route {
   title: string;
   url: string;
+}
+
+export interface SidebarRoute extends Route {
   icon: LucideIcon;
 }
 
@@ -48,5 +51,12 @@ export const sidebarRoute: SidebarRoute[] = [
     title: "Fault Analysis",
     url: "/fault-analysis",
     icon: ChartLine,
+  },
+];
+
+export const AuthRoutes: Route[] = [
+  {
+    title: "Sign Up",
+    url: "/signup",
   },
 ];
