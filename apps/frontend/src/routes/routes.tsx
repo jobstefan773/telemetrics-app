@@ -5,9 +5,7 @@ import {
   Forklift,
   Battery,
   ChartNoAxesColumn,
-  Settings,
 } from "lucide-react";
-import Image from "next/image";
 
 import { LucideIcon } from "lucide-react";
 
@@ -58,5 +56,9 @@ export const AuthRoutes: Route[] = [
   {
     title: "Sign Up",
     url: "/signup",
+  },
+  {
+    title: "Login",
+    url: "/",
   },
 ];

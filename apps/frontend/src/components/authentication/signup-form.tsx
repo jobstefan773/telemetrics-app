@@ -5,13 +5,20 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+import Image from "next/image";
+
 import { useRouter } from "next/navigation";
+
+import { AuthRoutes, Route } from "@/routes/routes";
 
 export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
   const router = useRouter();
+  const Login: Route | undefined = AuthRoutes.find(
+    (route) => route.title === "Login"
+  );
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -68,12 +75,6 @@ export function SignupForm({
               <div className='grid gap-3'>
                 <div className='flex items-center'>
                   <Label htmlFor='password'>Password</Label>
-                  <a
-                    href='#'
-                    className='ml-auto text-sm underline-offset-2 hover:underline'
-                  >
-                    Forgot your password?
-                  </a>
                 </div>
                 <Input id='password' type='password' required />
               </div>
@@ -93,20 +94,26 @@ export function SignupForm({
               >
                 Sign Up
               </Button>
-
               <div className='text-center text-sm'>
                 Already have an account?{" "}
-                <a href='/' className='underline underline-offset-4'>
-                  Log In
-                </a>
+                {Login && (
+                  <a
+                    href={Login.url}
+                    className='text-main-orange underline underline-offset-4'
+                  >
+                    {Login.title}
+                  </a>
+                )}
               </div>
             </div>
           </form>
           <div className='hidden md:flex bg-muted relative h-full items-center justify-center'>
-            <img
+            <Image
               src='/TechAdvise-Gray.png'
               alt='Image'
-              className='dark:brightness-[0.2] dark:grayscale h-64'
+              width={700 / 2.7}
+              height={692 / 2.7}
+              className='dark:brightness-[0.2] dark:grayscale'
             />
           </div>
         </CardContent>
