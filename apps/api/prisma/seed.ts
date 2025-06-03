@@ -5,10 +5,10 @@ const prisma = new PrismaClient();
 
 async function main() {
     const users = Array.from({ length : 10 }).map(()=>({
-        username: faker.person.firstName(),
+        username: faker.internet.username(),
         password: faker.internet.password(),
         email: faker.internet.email(),
-        contactNumber: faker.phone.number(),
+        phoneNumber: faker.phone.number(),
     }))
 
 
