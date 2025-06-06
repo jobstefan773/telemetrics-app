@@ -5,9 +5,7 @@ import {
   Forklift,
   Battery,
   ChartNoAxesColumn,
-  Settings,
 } from "lucide-react";
-import Image from "next/image";
 
 import TelemetricsLogo from "../telemetrics-logo";
 

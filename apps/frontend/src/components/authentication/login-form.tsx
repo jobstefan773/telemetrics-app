@@ -10,6 +10,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { AuthRoutes, Route } from "@/routes/routes";
+
 export function LoginForm({
   className,
   ...props
@@ -23,6 +24,7 @@ export function LoginForm({
     e.preventDefault();
 
     router.push("/home");
+
   };
 
   return (
@@ -32,7 +34,7 @@ export function LoginForm({
           <form className='p-6 md:p-8' onSubmit={handleSubmit}>
             <div className='flex flex-col gap-6'>
               <div className='flex flex-col items-center text-center'>
-                <h1 className='font-extrabold text-main-orange font-stretch-expanded text-2xl'>
+                <h1 className='scroll-m-20 text-center text-3xl font-extrabold tracking-tight text-balance text-main-orange'>
                   Telemetrics Project
                 </h1>
                 <p className='text-muted-foreground text-balance'>

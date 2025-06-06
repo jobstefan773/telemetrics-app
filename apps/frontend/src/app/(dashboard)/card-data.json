@@ -1,0 +1,10 @@
+[
+  {
+    "title": "Total Forklifts",
+    "description": "Number of forklifts currently in operation"
+  },
+  {
+    "title": "Battery",
+    "description": "Current battery status of forklifts"
+  }
+]

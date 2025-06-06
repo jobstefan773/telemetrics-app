@@ -7,17 +7,30 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-type CardData = {
+import { StatusIndicator } from "../card-status";
+
+type CardInfo = {
   title: string;
   description: string;
-  content: string;
-  total: string;
-  footer: string;
 };
 
-export default function CardDashboard({ cards }: { cards: CardData[] }) {
+type CardData = {
+  total_online: number;
+  total_offline: number;
+  total_number: number;
+};
+
+export default function CardDashboard({
+  cards,
+  data,
+}: {
+  cards: CardInfo[];
+  data: CardData[];
+}) {
   return (
-    <div className='*:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4 grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-main-white-accent *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card lg:px-6'>
+    <div className='*:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4 grid grid-cols-1 gap-4 px-4 lg:px-6'>
+      {/* Gradient background for cards:
+       *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-main-white-accent *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card */}
       {cards.map((card, idx) => (
         <Card key={idx} data-slot='card'>
           <CardHeader>
@@ -26,12 +39,30 @@ export default function CardDashboard({ cards }: { cards: CardData[] }) {
           </CardHeader>
           <CardContent>
             <p className='text-2xl font-bold'>
-              {card.content}
-              <span className='text-sm font-medium'> / {card.total}</span>
+              {data[idx]?.total_online}
+              <span className='text-sm font-medium'>
+                {" "}
+                / {data[idx]?.total_number}
+              </span>
             </p>
           </CardContent>
-          <CardFooter>
-            <p>{card.footer}</p>
+          <CardFooter className='grid grid-cols-3 gap-8'>
+            <div className='flex gap-2'>
+              <StatusIndicator
+                label='Online'
+                color='green'
+                className='font-light'
+              />
+              <span className='font-medium'>{data[idx]?.total_online}</span>
+            </div>
+            <div className='flex gap-2'>
+              <StatusIndicator
+                label='Offline'
+                color='red'
+                className='font-light'
+              />
+              <span className='font-medium'>{data[idx]?.total_offline}</span>
+            </div>
           </CardFooter>
         </Card>
       ))}
