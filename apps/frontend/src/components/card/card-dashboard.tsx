@@ -7,61 +7,34 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { StatusIndicator } from "../card-status";
+import { PercentageBar, Segment } from "@/components/percentage-bar";
 
-type CardInfo = {
+export interface StatusCardProps {
   title: string;
-  description: string;
-};
+  subtitle: string;
+  current: number;
+  total: number;
+  segments: Segment[];
+}
 
-type CardData = {
-  total_online: number;
-  total_offline: number;
-  total_number: number;
-};
-
-export default function CardDashboard({
-  cards,
-  data,
-}: {
-  cards: CardInfo[];
-  data: CardData[];
-}) {
+export default function CardDashboard({ data }: { data: StatusCardProps[] }) {
   return (
     <div className='*:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4 grid grid-cols-1 gap-4 px-4 lg:px-6'>
-      {/* Gradient background for cards:
-       *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-main-white-accent *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card */}
-      {cards.map((card, idx) => (
+      {data.map((data, idx) => (
         <Card key={idx} data-slot='card'>
           <CardHeader>
-            <CardTitle>{card.title}</CardTitle>
-            <CardDescription>{card.description}</CardDescription>
+            <CardTitle>{data.title}</CardTitle>
+            <CardDescription>{data.subtitle}</CardDescription>
           </CardHeader>
           <CardContent>
             <p className='text-2xl font-bold'>
-              {data[idx]?.total_online}
-              <span className='text-sm font-medium'>
-                {" "}
-                / {data[idx]?.total_number}
-              </span>
+              {data.current}
+              <span className='text-sm font-medium'> / {data.total}</span>
             </p>
           </CardContent>
-          <CardFooter className='grid grid-cols-3 gap-8'>
-            <div className='flex gap-2'>
-              <StatusIndicator
-                label='Online'
-                color='green'
-                className='font-light'
-              />
-              <span className='font-medium'>{data[idx]?.total_online}</span>
-            </div>
-            <div className='flex gap-2'>
-              <StatusIndicator
-                label='Offline'
-                color='red'
-                className='font-light'
-              />
-              <span className='font-medium'>{data[idx]?.total_offline}</span>
+          <CardFooter>
+            <div className='w-full'>
+              <PercentageBar segments={data.segments} height='h-3' />
             </div>
           </CardFooter>
         </Card>

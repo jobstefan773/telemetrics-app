@@ -1,12 +1,35 @@
 [
   {
-    "total_online": 30,
-    "total_offline": 40,
-    "total_number": 60
+    "title": "Total Forklifts",
+    "subtitle": "Number of forklifts currently in operation",
+    "current": 30,
+    "total": 60,
+    "segments": [
+      { "label": "Online", "value": 20, "color": "#4ade80" },
+      { "label": "On Hold", "value": 10, "color": "#fbbf24" },
+      { "label": "Offline", "value": 25, "color": "#f87171" }
+
+    ]
   },
   {
-    "total_online": 20,
-    "total_offline": 30,
-    "total_number": 50
+    "title": "Battery",
+    "subtitle": "Current battery status of forklifts",
+    "current": 20,
+    "total": 50,
+    "segments": [
+      { "label": "High", "value": 15, "color": "#4ade80" },
+      { "label": "Medium", "value": 20, "color": "#fcd34d" },
+      { "label": "Low", "value": 15, "color": "#f87171" }
+    ]
+  },
+  {
+    "title": "Maintenance",
+    "subtitle": "Forklifts due for service",
+    "current": 8,
+    "total": 60,
+    "segments": [
+      { "label": "Due Soon", "value": 5, "color": "#fbbf24" },
+      { "label": "Overdue", "value": 3, "color": "#f87171" }
+    ]
   }
 ]
