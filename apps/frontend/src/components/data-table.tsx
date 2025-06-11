@@ -50,6 +50,7 @@ import {
   TrendingUpIcon,
 } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+
 import { z } from "zod";
 
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -334,14 +335,14 @@ export function DataTable({
 
   return (
     <Tabs
-      defaultValue='outline'
+      defaultValue='forklifts'
       className='flex w-full flex-col justify-start gap-6'
     >
       <div className='flex items-center justify-between px-4 lg:px-6'>
         <Label htmlFor='view-selector' className='sr-only'>
           View
         </Label>
-        <Select defaultValue='outline'>
+        <Select defaultValue='forklifts'>
           <SelectTrigger
             className='@4xl/main:hidden flex w-fit'
             id='view-selector'
@@ -349,16 +350,14 @@ export function DataTable({
             <SelectValue placeholder='Select a view' />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value='outline'>Outline</SelectItem>
+            <SelectItem value='forklifts'>Forklifts</SelectItem>
             <SelectItem value='past-performance'>Past Performance</SelectItem>
-            <SelectItem value='key-personnel'>Key Personnel</SelectItem>
-            <SelectItem value='focus-documents'>Focus Documents</SelectItem>
           </SelectContent>
         </Select>
         <TabsList className='@4xl/main:flex hidden'>
-          <TabsTrigger value='outline'>Outline</TabsTrigger>
-          <TabsTrigger value='past-performance' className='gap-1'>
-            Past Performance{" "}
+          <TabsTrigger value='forklifts'>Forklifts</TabsTrigger>
+          <TabsTrigger value='battery' className='gap-1'>
+            Battery{" "}
             <Badge
               variant='secondary'
               className='flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground/30'
@@ -366,16 +365,6 @@ export function DataTable({
               3
             </Badge>
           </TabsTrigger>
-          <TabsTrigger value='key-personnel' className='gap-1'>
-            Key Personnel{" "}
-            <Badge
-              variant='secondary'
-              className='flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground/30'
-            >
-              2
-            </Badge>
-          </TabsTrigger>
-          <TabsTrigger value='focus-documents'>Focus Documents</TabsTrigger>
         </TabsList>
         <div className='flex items-center gap-2'>
           <DropdownMenu>
@@ -418,7 +407,7 @@ export function DataTable({
         </div>
       </div>
       <TabsContent
-        value='outline'
+        value='forklifts'
         className='relative flex flex-col gap-4 overflow-auto px-4 lg:px-6'
       >
         <div className='overflow-hidden rounded-lg border'>
