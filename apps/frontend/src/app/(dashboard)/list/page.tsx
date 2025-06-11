@@ -1,3 +1,6 @@
+import { DataTable } from "@/components/data-table";
+import { forklifts } from "./forklifts-data";
+
 export default function Page() {
-  return <h1>Hello World </h1>;
+  return <DataTable data={forklifts} />;
 }

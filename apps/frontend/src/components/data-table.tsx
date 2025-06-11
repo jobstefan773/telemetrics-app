@@ -37,7 +37,6 @@ import {
 } from "@tanstack/react-table";
 import {
   CheckCircle2Icon,
-  CheckCircleIcon,
   ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -51,7 +50,6 @@ import {
   TrendingUpIcon,
 } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import { toast } from "sonner";
 import { z } from "zod";
 
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -102,18 +100,17 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export const schema = z.object({
-  id: z.number(),
-  header: z.string(),
-  type: z.string(),
+export const forkliftSchema = z.object({
+  id: z.string().uuid(),
+  vin: z.string(),
   status: z.string(),
-  target: z.string(),
-  limit: z.string(),
-  reviewer: z.string(),
+  holder_id: z.string().uuid(),
+  registered_by: z.string().uuid(),
+  registered_at: z.date(),
 });
 
 // Create a separate component for the drag handle
-function DragHandle({ id }: { id: number }) {
+function DragHandle({ id }: { id: string }) {
   const { attributes, listeners } = useSortable({
     id,
   });
@@ -132,7 +129,7 @@ function DragHandle({ id }: { id: number }) {
   );
 }
 
-const columns: ColumnDef<z.infer<typeof schema>>[] = [
+const columns: ColumnDef<z.infer<typeof forkliftSchema>>[] = [
   {
     id: "drag",
     header: () => null,
@@ -165,31 +162,21 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "header",
-    header: "Header",
+    accessorKey: "vin",
+    header: "VIN",
     cell: ({ row }) => {
       return <TableCellViewer item={row.original} />;
     },
     enableHiding: false,
   },
-  {
-    accessorKey: "type",
-    header: "Section Type",
-    cell: ({ row }) => (
-      <div className='w-32'>
-        <Badge variant='outline' className='px-1.5 text-muted-foreground'>
-          {row.original.type}
-        </Badge>
-      </div>
-    ),
-  },
+
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => (
       <Badge
         variant='outline'
-        className='flex gap-1 px-1.5 text-muted-foreground [&_svg]:size-3'
+        className='flex gap-1 px-1.5 text-muted-foreground [&_svg]:size-3 capitalize'
       >
         {row.original.status === "Done" ? (
           <CheckCircle2Icon className='text-green-500 dark:text-green-400' />
@@ -201,85 +188,31 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     ),
   },
   {
-    accessorKey: "target",
-    header: () => <div className='w-full text-right'>Target</div>,
+    accessorKey: "holder_id",
+    header: () => <div className='w-full text-right'>Holder ID</div>,
     cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          });
-        }}
-      >
-        <Label htmlFor={`${row.original.id}-target`} className='sr-only'>
-          Target
-        </Label>
-        <Input
-          className='h-8 w-16 border-transparent bg-transparent text-right shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background'
-          defaultValue={row.original.target}
-          id={`${row.original.id}-target`}
-        />
-      </form>
+      <div className='w-full text-right'>{row.original.holder_id}</div>
     ),
   },
   {
-    accessorKey: "limit",
-    header: () => <div className='w-full text-right'>Limit</div>,
+    accessorKey: "registered_by",
+    header: () => <div className='w-full text-right'>Registered By</div>,
     cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          });
-        }}
-      >
-        <Label htmlFor={`${row.original.id}-limit`} className='sr-only'>
-          Limit
-        </Label>
-        <Input
-          className='h-8 w-16 border-transparent bg-transparent text-right shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background'
-          defaultValue={row.original.limit}
-          id={`${row.original.id}-limit`}
-        />
-      </form>
+      <div className='w-full text-right'>{row.original.registered_by}</div>
     ),
   },
   {
-    accessorKey: "reviewer",
-    header: "Reviewer",
+    accessorKey: "registered_at",
+    header: () => <div className='w-full text-center'>Registered At</div>,
     cell: ({ row }) => {
-      const isAssigned = row.original.reviewer !== "Assign reviewer";
-
-      if (isAssigned) {
-        return row.original.reviewer;
-      }
-
+      const dt = row.original.registered_at as Date;
       return (
-        <>
-          <Label htmlFor={`${row.original.id}-reviewer`} className='sr-only'>
-            Reviewer
-          </Label>
-          <Select>
-            <SelectTrigger
-              className='h-8 w-40'
-              id={`${row.original.id}-reviewer`}
-            >
-              <SelectValue placeholder='Assign reviewer' />
-            </SelectTrigger>
-            <SelectContent align='end'>
-              <SelectItem value='Eddie Lake'>Eddie Lake</SelectItem>
-              <SelectItem value='Jamik Tashpulatov'>
-                Jamik Tashpulatov
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </>
+        <div className='w-full text-center'>
+          {dt.toLocaleDateString()}{" "}
+          <span className='text-xs text-muted-foreground'>
+            {dt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+          </span>
+        </div>
       );
     },
   },
@@ -309,7 +242,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   },
 ];
 
-function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
+function DraggableRow({ row }: { row: Row<z.infer<typeof forkliftSchema>> }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
     id: row.original.id,
   });
@@ -337,7 +270,7 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
 export function DataTable({
   data: initialData,
 }: {
-  data: z.infer<typeof schema>[];
+  data: z.infer<typeof forkliftSchema>[];
 }) {
   const [data, setData] = React.useState(() => initialData);
   const [rowSelection, setRowSelection] = React.useState({});
@@ -656,19 +589,19 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
+function TableCellViewer({ item }: { item: z.infer<typeof forkliftSchema> }) {
   const isMobile = useIsMobile();
 
   return (
     <Sheet>
       <SheetTrigger asChild>
         <Button variant='link' className='w-fit px-0 text-left text-foreground'>
-          {item.header}
+          {item.vin}
         </Button>
       </SheetTrigger>
       <SheetContent side='right' className='flex flex-col'>
         <SheetHeader className='gap-1'>
-          <SheetTitle>{item.header}</SheetTitle>
+          <SheetTitle>{item.vin}</SheetTitle>
           <SheetDescription>
             Showing total visitors for the last 6 months
           </SheetDescription>
@@ -734,34 +667,11 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
           <form className='flex flex-col gap-4'>
             <div className='flex flex-col gap-3'>
               <Label htmlFor='header'>Header</Label>
-              <Input id='header' defaultValue={item.header} />
+              <Input id='header' defaultValue={item.vin} />
             </div>
             <div className='grid grid-cols-2 gap-4'>
               <div className='flex flex-col gap-3'>
                 <Label htmlFor='type'>Type</Label>
-                <Select defaultValue={item.type}>
-                  <SelectTrigger id='type' className='w-full'>
-                    <SelectValue placeholder='Select a type' />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value='Table of Contents'>
-                      Table of Contents
-                    </SelectItem>
-                    <SelectItem value='Executive Summary'>
-                      Executive Summary
-                    </SelectItem>
-                    <SelectItem value='Technical Approach'>
-                      Technical Approach
-                    </SelectItem>
-                    <SelectItem value='Design'>Design</SelectItem>
-                    <SelectItem value='Capabilities'>Capabilities</SelectItem>
-                    <SelectItem value='Focus Documents'>
-                      Focus Documents
-                    </SelectItem>
-                    <SelectItem value='Narrative'>Narrative</SelectItem>
-                    <SelectItem value='Cover Page'>Cover Page</SelectItem>
-                  </SelectContent>
-                </Select>
               </div>
               <div className='flex flex-col gap-3'>
                 <Label htmlFor='status'>Status</Label>
@@ -780,16 +690,16 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
             <div className='grid grid-cols-2 gap-4'>
               <div className='flex flex-col gap-3'>
                 <Label htmlFor='target'>Target</Label>
-                <Input id='target' defaultValue={item.target} />
+                <Input id='target' defaultValue={item.holder_id} />
               </div>
               <div className='flex flex-col gap-3'>
                 <Label htmlFor='limit'>Limit</Label>
-                <Input id='limit' defaultValue={item.limit} />
+                <Input id='limit' defaultValue={item.registered_by} />
               </div>
             </div>
             <div className='flex flex-col gap-3'>
               <Label htmlFor='reviewer'>Reviewer</Label>
-              <Select defaultValue={item.reviewer}>
+              <Select defaultValue={item.registered_at.toString()}>
                 <SelectTrigger id='reviewer' className='w-full'>
                   <SelectValue placeholder='Select a reviewer' />
                 </SelectTrigger>

@@ -1,0 +1,52 @@
+// forklifts.ts
+export interface Forklift {
+  id: string;
+  vin: string;
+  status: string;
+  holder_id: string;
+  registered_by: string;
+  registered_at: Date;
+}
+
+export const forklifts: Forklift[] = [
+  {
+    id: "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+    vin: "1FTSW21P07EB12345",
+    status: "standby",
+    holder_id: "1",
+    registered_by: "11111111-2222-3333-4444-555555555555",
+    registered_at: new Date("2025-01-15T08:30:00.000Z"),
+  },
+  {
+    id: "7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b",
+    vin: "JN8AZ2KR0HT123456",
+    status: "rented",
+    holder_id: "2",
+    registered_by: "66666666-7777-8888-9999-000000000000",
+    registered_at: new Date("2025-02-20T14:45:30.000Z"),
+  },
+  {
+    id: "3f4e5d6c-7b8a-9c0d-1e2f-3a4b5c6d7e8f",
+    vin: "3VW2K7AJ5CM123456",
+    status: "owned",
+    holder_id: "3",
+    registered_by: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+    registered_at: new Date("2025-03-10T09:15:45.000Z"),
+  },
+  {
+    id: "9a0b1c2d-3e4f-5a6b-7c8d-9e0f1a2b3c4d",
+    vin: "1HGCM82633A004352",
+    status: "standby",
+    holder_id: "4",
+    registered_by: "ffffffff-eeee-dddd-cccc-bbbbbbbbbbbb",
+    registered_at: new Date("2025-04-25T11:00:00.000Z"),
+  },
+  {
+    id: "6d5c4b3a-2f1e-0d9c-8b7a-6e5d4c3b2a1f",
+    vin: "1M8GDM9AXKP042788",
+    status: "rented",
+    holder_id: "5",
+    registered_by: "123e4567-e89b-12d3-a456-426614174000",
+    registered_at: new Date("2025-05-05T16:20:00.000Z"),
+  },
+];
